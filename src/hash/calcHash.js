@@ -1,9 +1,8 @@
 import { readFile } from 'fs/promises';
 import { createHash } from 'crypto';
-import { fileURLToPath } from 'url';
+import { getAbsolutePath } from '../utils.js';
 
-const fileURL = new URL('./files/fileToCalculateHashFor.txt', import.meta.url);
-const filePath = fileURLToPath(fileURL);
+const filePath = getAbsolutePath('./files/fileToCalculateHashFor.txt', import.meta.url);
 
 const calculateHash = async () => {
 	const sha256Hash = createHash('sha256');

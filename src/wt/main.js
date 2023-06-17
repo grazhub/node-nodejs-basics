@@ -1,9 +1,8 @@
 import { cpus } from 'os';
-import { fileURLToPath } from 'url';
 import { Worker } from 'worker_threads';
+import { getAbsolutePath } from '../utils.js';
 
-const workerUrl = new URL('./worker.js', import.meta.url);
-const workerPath = fileURLToPath(workerUrl);
+const workerPath = getAbsolutePath('./worker.js', import.meta.url);
 const cpusNum = cpus().length;
 const startNum = 10;
 const statusResolved = 'resolved';

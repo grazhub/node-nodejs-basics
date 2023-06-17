@@ -6,7 +6,6 @@ const parseEnv = () => {
 		value.startsWith(prefix) ? [...acc, `${value}=${envVars[value]}`] : acc, []);
 
 	console.log(formattedEnvVars.join(', '));
-	
 };
 
 parseEnv();

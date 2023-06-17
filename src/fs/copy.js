@@ -1,22 +1,15 @@
 import { readdir, mkdir, copyFile } from 'fs/promises';
-import { dirname, resolve } from 'path';
-import { fileURLToPath } from 'url';
+import { getAbsolutePath } from '../utils.js';
 
-const currentDirPath = dirname(fileURLToPath(import.meta.url));
+const currentFileURL = import.meta.url;
 
-const copiesRelativePath = './files_copy';
-const originRelativePath = './files';
+const copiesDirPath = getAbsolutePath('./files_copy', currentFileURL);
+const originDirPath = getAbsolutePath('./files', currentFileURL);
 
 const copy = async () => {
     try {
-		const [files] = await Promise.all([
-			readdir(resolve(currentDirPath, originRelativePath)),
-			mkdir(resolve(currentDirPath, copiesRelativePath))
-		]);
-		const filePromises = files.map(fileName => copyFile(
-			resolve(currentDirPath, `${originRelativePath}/${fileName}`),
-			resolve(currentDirPath, `${copiesRelativePath}/${fileName}`)
-		));
+		const [files] = await Promise.all([readdir(originDirPath), mkdir(copiesDirPath)]);
+		const filePromises = files.map(fileName => copyFile(`${originDirPath}/${fileName}`, `${copiesDirPath}/${fileName}`));
 		await Promise.all(filePromises);
 	} catch (error) {
 		console.log(error);

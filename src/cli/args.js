@@ -9,7 +9,6 @@ const parseArgs = () => {
 			return [...acc, formatted];
 		}
 		return acc;
-
 	}, []);
 
 	console.log(argStringsArr.join(', '));

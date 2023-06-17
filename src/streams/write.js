@@ -1,9 +1,8 @@
 import { createWriteStream } from 'fs';
 import { pipeline } from 'stream/promises';
-import { fileURLToPath } from 'url';
+import { getAbsolutePath } from '../utils.js';
 
-const fileURL = new URL('./files/fileToWrite.txt', import.meta.url);
-const filePath = fileURLToPath(fileURL);
+const filePath = getAbsolutePath('./files/fileToWrite.txt', import.meta.url);
 
 const write = async () => {
     const writableStream = createWriteStream(filePath, { flags : 'a' });

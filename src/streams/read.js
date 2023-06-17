@@ -1,9 +1,8 @@
 import { createReadStream } from 'fs';
 import { pipeline } from 'stream/promises';
-import { fileURLToPath } from 'url';
+import { getAbsolutePath } from '../utils.js';
 
-const fileURL = new URL('./files/fileToRead.txt', import.meta.url);
-const filePath = fileURLToPath(fileURL);
+const filePath = getAbsolutePath('./files/fileToRead.txt', import.meta.url);
 
 const read = async () => {
     const readableStream = createReadStream(filePath);

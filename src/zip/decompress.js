@@ -1,12 +1,11 @@
 import { createReadStream, createWriteStream } from 'fs';
 import { pipeline } from 'stream/promises';
-import { fileURLToPath } from 'url';
 import { createGunzip } from 'zlib';
+import { getAbsolutePath } from '../utils.js';
 
-const fileURL = new URL('./files/fileToCompress.txt', import.meta.url);
-const archiveFileURL = new URL('./files/archive.gz', import.meta.url);
-const filePath = fileURLToPath(fileURL);
-const archiveFilePath = fileURLToPath(archiveFileURL);
+const currentFileURL = import.meta.url;
+const filePath = getAbsolutePath('./files/fileToCompress.txt', currentFileURL);
+const archiveFilePath = getAbsolutePath('./files/archive.gz', currentFileURL);
 
 const decompress = async () => {
     await pipeline(createReadStream(archiveFilePath), createGunzip(), createWriteStream(filePath));
